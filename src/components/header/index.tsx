@@ -4,7 +4,7 @@ import * as S from './styles'
 
 export function Header() {
   return (
-    <S.Container>
+    <S.Container className="container">
       <img
         src={logo}
         alt="logo do coffee delivery, um copo de café na cor roxa com um joguete desenhado e um texto escrito 'coffee delivery'"
