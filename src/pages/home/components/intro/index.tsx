@@ -1,6 +1,6 @@
 import * as S from './styles'
 import introBanner from '../../../../assets/images/intro-banner.png'
-import { ShoppingCart } from 'phosphor-react'
+import { Highlights } from '../highlights'
 
 export function Intro() {
   return (
@@ -14,50 +14,8 @@ export function Intro() {
           </p>
           <Highlights />
         </S.DescriptionSection>
-        <img src={introBanner} alt="" />
+        <img src={introBanner} alt="Imagem de um copo de café" />
       </S.Content>
     </S.Container>
-  )
-}
-
-const highlightsList = [
-  {
-    id: 1,
-    icon: <ShoppingCart size={16} weight="fill" />,
-    text: 'Compra simples e segura',
-    bgColor: 'product-yellow-dark',
-  },
-  {
-    id: 2,
-    icon: <ShoppingCart size={16} weight="fill" />,
-    text: 'Embalagem mantém o café intacto',
-    bgColor: 'base-text',
-  },
-  {
-    id: 1,
-    icon: <ShoppingCart size={16} weight="fill" />,
-    text: 'Entrega rápida e rastreada',
-    bgColor: 'product-yellow',
-  },
-  {
-    id: 1,
-    icon: <ShoppingCart size={16} weight="fill" />,
-    text: 'O café chega fresquinho até você',
-    bgColor: 'product-purple',
-  },
-] as const
-
-function Highlights() {
-  return (
-    <S.HighlightList>
-      {highlightsList.map((highlight) => (
-        <li key={highlight.id}>
-          <S.HighlightIcon bgColor={highlight.bgColor}>
-            {highlight.icon}
-          </S.HighlightIcon>
-          <span>{highlight.text}</span>
-        </li>
-      ))}
-    </S.HighlightList>
   )
 }

@@ -1,15 +1,19 @@
 import { styled } from 'styled-components'
 
 import introBackground from '../../../../assets/introBackgroud.svg'
+import { rgba } from 'polished'
 
 export const Container = styled.div`
   width: 100%;
   height: 34rem;
-  background: ${() => `url(${introBackground})`};
+  background: ${({ theme }) => `url(${introBackground}) no-repeat center,
+      linear-gradient(
+        0deg,
+        ${theme.colors['base-white']} 0%,
+        ${rgba(theme.colors['base-background'], 0.2)} 50%,
+        ${theme.colors['base-background']} 100%
+      )`};
   background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-color: ${({ theme }) => theme.colors['base-background']};
 `
 export const Content = styled.div`
   display: flex;
@@ -31,6 +35,7 @@ export const DescriptionSection = styled.section`
     font-size: ${({ theme }) => theme.textSizes['title-xl']};
     font-family: ${({ theme }) => theme.fonts.title};
     color: ${({ theme }) => theme.colors['base-title']};
+    line-height: 130%;
   }
 
   & > p {
@@ -39,48 +44,6 @@ export const DescriptionSection = styled.section`
     font-size: ${({ theme }) => theme.textSizes['text-regular-l']};
     font-family: ${({ theme }) => theme.fonts.regular};
     color: ${({ theme }) => theme.colors['base-subtitle']};
+    line-height: 130%;
   }
-`
-
-export const HighlightList = styled.ul`
-  margin-top: 4.125rem;
-
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1.6rem 2.5rem;
-
-  li {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    flex-wrap: nowrap;
-
-    span {
-      font-size: ${({ theme }) => theme.textSizes['text-regular-m']};
-      font-family: ${({ theme }) => theme.fonts.regular};
-      color: ${({ theme }) => theme.colors['base-text']};
-    }
-  }
-`
-
-type IHighlightIconColors =
-  | 'product-yellow-dark'
-  | 'base-text'
-  | 'product-yellow'
-  | 'product-purple'
-
-interface IHighlightIconProps {
-  bgColor: IHighlightIconColors
-}
-
-export const HighlightIcon = styled.div<IHighlightIconProps>`
-  height: 2rem;
-  width: 2rem;
-  background-color: ${({ theme, bgColor }) => theme.colors[bgColor]};
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: ${({ theme }) => theme.colors['base-white']};
-  border-radius: 50%;
 `
