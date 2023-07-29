@@ -6,6 +6,7 @@ export const Container = styled.header`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  background-color: ${({ theme }) => theme.colors['base-background']};
 `
 
 export const Actions = styled.div`
