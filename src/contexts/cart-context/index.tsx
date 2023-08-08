@@ -1,4 +1,4 @@
-import { createContext, useReducer } from 'react'
+import { createContext, useEffect, useReducer } from 'react'
 import { CartReducer, ICoffee } from './reducer'
 import { AddNewCoffeeToCartAction } from './actions'
 
@@ -16,8 +16,25 @@ const initialState = {
 }
 
 export function CartProvider({ children }: { children: React.ReactNode }) {
-  const [cartState, dispatch] = useReducer(CartReducer, initialState)
-  console.log(cartState.cartList)
+  const [cartState, dispatch] = useReducer(
+    CartReducer,
+    initialState,
+    (initialState) => {
+      const storageStateAsJSON = localStorage.getItem('@coffee:cart-1.0.0')
+
+      if (storageStateAsJSON) {
+        return JSON.parse(storageStateAsJSON)
+      }
+
+      return initialState
+    },
+  )
+
+  useEffect(() => {
+    const stateJSON = JSON.stringify(cartState)
+
+    localStorage.setItem('@coffee:cart-1.0.0', stateJSON)
+  }, [cartState])
 
   function addToCart(coffee: ICoffee) {
     dispatch(AddNewCoffeeToCartAction(coffee))
