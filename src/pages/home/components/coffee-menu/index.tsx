@@ -1,3 +1,4 @@
+import { coffees } from '../../../../data/coffees'
 import { CoffeeCard } from '../coffee-card'
 import * as S from './styles'
 
@@ -7,12 +8,9 @@ export function CoffeeMenu() {
       <S.Title>Nossos cafés</S.Title>
 
       <S.CardList>
-        <CoffeeCard />
-        <CoffeeCard />
-        <CoffeeCard />
-        <CoffeeCard />
-        <CoffeeCard />
-        <CoffeeCard />
+        {coffees.map((coffee) => (
+          <CoffeeCard key={coffee.id} coffee={coffee} />
+        ))}
       </S.CardList>
     </S.Wrapper>
   )
