@@ -5,26 +5,38 @@ import { OrderConfirmedContainer, OrderDetailsContainer } from './styles'
 import { InfoWithIcon } from '../../components/info-with-icon'
 import { Clock, CurrencyDollar, MapPin } from 'phosphor-react'
 import confirmedOrderIllustration from '../../assets/images/confirmation-illustration.svg'
+import { useLocation, useNavigate } from 'react-router-dom'
+import { paymentMethods } from '@pages/checkout/components/complement-form/payment-options'
+import { TComplementFormData } from '@pages/checkout'
+import { Button } from '@components/button'
+import { useEffect } from 'react'
 
-// interface LocationType {
-//   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-//   state: any
-// }
+interface LocationType {
+  state: TComplementFormData
+}
 
 export function Success() {
   const { colors } = useTheme()
 
-  // const { state } = useLocation() as unknown as LocationType
+  const { state } = useLocation() as unknown as LocationType
 
-  // const navigate = useNavigate()
+  const navigate = useNavigate()
 
-  // useEffect(() => {
-  //   if (!state) {
-  //     navigate('/')
-  //   }
-  // }, [])
+  function backToHome() {
+    navigate('/', {
+      state: null,
+    })
+  }
 
-  // if (!state) return <></>
+  useEffect(() => {
+    if (!state) {
+      backToHome()
+    }
+  }, [])
+
+  if (!state) {
+    return null
+  }
 
   return (
     <OrderConfirmedContainer className="container">
@@ -39,19 +51,19 @@ export function Success() {
         <OrderDetailsContainer>
           <InfoWithIcon
             icon={<MapPin weight="fill" />}
-            iconBg={colors['product-purple']}
+            $iconBg={colors['product-purple']}
             text={
               <RegularText>
-                Entrega em <strong>Rua Batatinha</strong>, 123
+                Entrega em <strong>{state.street}</strong>, {state.number}
                 <br />
-                Farrapos - SGA, CE
+                {state.neighborhood} - {state.city}, {state.state}
               </RegularText>
             }
           />
 
           <InfoWithIcon
             icon={<Clock weight="fill" />}
-            iconBg={colors['product-yellow']}
+            $iconBg={colors['product-yellow']}
             text={
               <RegularText>
                 Previsão de entrega
@@ -63,18 +75,22 @@ export function Success() {
 
           <InfoWithIcon
             icon={<CurrencyDollar weight="fill" />}
-            iconBg={colors['product-yellow-dark']}
+            $iconBg={colors['product-yellow-dark']}
             text={
               <RegularText>
                 Pagamento na entrega
                 <br />
-                <strong>cartão</strong>
+                <strong>{paymentMethods[state.paymentMethod].label}</strong>
               </RegularText>
             }
           />
         </OrderDetailsContainer>
-        <img src={confirmedOrderIllustration} />
+        <img src={confirmedOrderIllustration} alt="" />
       </section>
+
+      <footer>
+        <Button text={'Voltar para pagina inicial'} onClick={backToHome} />
+      </footer>
     </OrderConfirmedContainer>
   )
 }

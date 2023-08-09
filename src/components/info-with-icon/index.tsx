@@ -4,13 +4,13 @@ import { ReactNode } from 'react'
 interface BenefitItemProps {
   icon: ReactNode
   text: string | ReactNode
-  iconBg: string
+  $iconBg: string
 }
 
-export function InfoWithIcon({ icon, text, iconBg }: BenefitItemProps) {
+export function InfoWithIcon({ icon, text, $iconBg }: BenefitItemProps) {
   return (
     <InfoWithIconContainer>
-      <IconContainer iconBg={iconBg}>{icon}</IconContainer>
+      <IconContainer $iconBg={$iconBg}>{icon}</IconContainer>
       {typeof text === 'string' ? <p>{text}</p> : text}
     </InfoWithIconContainer>
   )

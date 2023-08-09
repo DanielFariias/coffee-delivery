@@ -17,7 +17,7 @@ export const paymentMethods = {
     label: 'Dinheiro',
     icon: <Money size={16} />,
   },
-}
+} as const
 
 export function PaymentOptions() {
   const {

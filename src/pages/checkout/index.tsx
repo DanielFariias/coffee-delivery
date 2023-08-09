@@ -27,7 +27,7 @@ const complementSchema = z.object({
   }),
 })
 
-type TComplementFormData = z.infer<typeof complementSchema>
+export type TComplementFormData = z.infer<typeof complementSchema>
 
 export function Checkout() {
   const navigate = useNavigate()
@@ -45,9 +45,7 @@ export function Checkout() {
     console.log(data)
     onClearCart()
     navigate('/success', {
-      state: {
-        data,
-      },
+      state: data,
     })
   }
 
