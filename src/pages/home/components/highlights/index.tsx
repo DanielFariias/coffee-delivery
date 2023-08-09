@@ -7,7 +7,7 @@ export function Highlights() {
     <S.HighlightList>
       {highlightsList.map((highlight) => (
         <li key={highlight.id}>
-          <S.HighlightIcon bgColor={highlight.bgColor}>
+          <S.HighlightIcon $bgColor={highlight.bgColor}>
             {highlight.icon}
           </S.HighlightIcon>
           <span>{highlight.text}</span>

@@ -28,7 +28,7 @@ type IHighlightIconColors =
   | 'product-purple'
 
 interface IHighlightIconProps {
-  bgColor: IHighlightIconColors
+  $bgColor: IHighlightIconColors
 }
 
 export const HighlightIcon = styled.div<IHighlightIconProps>`
@@ -36,7 +36,7 @@ export const HighlightIcon = styled.div<IHighlightIconProps>`
   width: 2rem;
   min-width: 2rem;
   min-height: 2rem;
-  background-color: ${({ theme, bgColor }) => theme.colors[bgColor]};
+  background-color: ${({ theme, $bgColor }) => theme.colors[$bgColor]};
 
   display: flex;
   align-items: center;

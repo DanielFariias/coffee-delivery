@@ -1,6 +1,6 @@
 import { PaymentMethodOptionsContainer } from './styles'
 import { CreditCard, Money, Bank } from 'phosphor-react'
-import { useForm } from 'react-hook-form'
+import { useFormContext } from 'react-hook-form'
 import { PaymentMethodInput } from '../payment-method-input'
 import { RegularText } from '../../../../components/typography/regular-text'
 
@@ -23,7 +23,7 @@ export function PaymentOptions() {
   const {
     register,
     formState: { errors },
-  } = useForm()
+  } = useFormContext()
 
   const paymentMethodError = errors?.paymentMethod?.message as unknown as string
 

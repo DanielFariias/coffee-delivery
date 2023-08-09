@@ -10,6 +10,10 @@ export const CoffeeCartCardContainer = styled.div`
   padding-bottom: 1.5rem;
   margin-bottom: 1.5rem;
 
+  &:last-child {
+    margin-bottom: 0;
+  }
+
   > div {
     display: flex;
     align-items: center;

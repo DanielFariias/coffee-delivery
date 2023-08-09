@@ -1,4 +1,4 @@
-import { useForm } from 'react-hook-form'
+import { useFormContext } from 'react-hook-form'
 import { Input } from '../../../../components/input'
 import * as S from './styles'
 
@@ -11,7 +11,7 @@ interface ErrorsType {
 }
 
 export function AdressForm() {
-  const { register, formState } = useForm()
+  const { register, formState } = useFormContext()
   const { errors } = formState as unknown as ErrorsType
   return (
     <S.AdressFormContainer>
@@ -43,15 +43,19 @@ export function AdressForm() {
       />
       <Input
         placeholder="Bairro"
-        {...register('district')}
-        error={errors.district?.message}
+        {...register('neighborhood')}
+        error={errors.neighborhood?.message}
       />
       <Input
         placeholder="Cidade"
         {...register('city')}
         error={errors.city?.message}
       />
-      <Input placeholder="UF" {...register('uf')} error={errors.uf?.message} />
+      <Input
+        placeholder="UF"
+        {...register('state')}
+        error={errors.state?.message}
+      />
     </S.AdressFormContainer>
   )
 }

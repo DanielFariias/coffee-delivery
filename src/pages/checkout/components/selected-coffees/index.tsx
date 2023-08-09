@@ -1,24 +1,12 @@
+import { useContext } from 'react'
 import { TitleText } from '../../../../components/typography/title-text'
-import { CoffeeCartCard } from './coffee-card'
+import { CoffeeCartCard } from '../coffee-card'
 import { ConfirmationSection } from './confirmation-section'
 import { DetailsContainer, SelectedCoffeesContainer } from './styles'
-
-const coffees = [
-  {
-    id: 1,
-    name: 'Café da casa',
-    photo: '/images/coffee/americano.png',
-    quantity: 1,
-  },
-  {
-    id: 12,
-    name: 'Café da casa',
-    photo: '/images/coffee/americano.png',
-    quantity: 12,
-  },
-]
+import { CartContext } from '../../../../contexts/cart-context'
 
 export function SelectedCoffees() {
+  const { cartList } = useContext(CartContext)
   return (
     <SelectedCoffeesContainer>
       <TitleText size="xs" color="subtitle">
@@ -26,10 +14,11 @@ export function SelectedCoffees() {
       </TitleText>
 
       <DetailsContainer>
-        {coffees.map((item) => (
-          <CoffeeCartCard key={1} coffee={item} />
-        ))}
-
+        <div className="coffee-list">
+          {cartList.map((coffee) => (
+            <CoffeeCartCard key={coffee.id} coffee={coffee} />
+          ))}
+        </div>
         <ConfirmationSection />
       </DetailsContainer>
     </SelectedCoffeesContainer>

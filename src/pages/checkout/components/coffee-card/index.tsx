@@ -1,43 +1,55 @@
-import { RegularText } from '../../../../../components/typography/regular-text'
-import { QuantityInput } from '../../../../home/components/quantity-input'
+import { RegularText } from '@components/typography/regular-text'
+import { Trash } from 'phosphor-react'
+import { ICoffee } from '@contexts/cart-context/reducer'
+import { formatPricer } from '@utils/formatPricer'
+import { QuantityInput } from '@pages/home/components/quantity-input'
+
 import {
+  RemoveButton,
   ActionsContainer,
   CoffeeCartCardContainer,
-  RemoveButton,
 } from './styles'
-import { Trash } from 'phosphor-react'
+import { useContext } from 'react'
+import { CartContext } from '@contexts/cart-context'
 
 interface CoffeeCartCardProps {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  coffee: any
+  coffee: ICoffee
 }
 
 export function CoffeeCartCard({ coffee }: CoffeeCartCardProps) {
+  const {
+    onDecreaseCoffeeQuantity,
+    onIncreaseCoffeeQuantity,
+    onRemoveCoffeeCart,
+  } = useContext(CartContext)
   function handleIncrease() {
     console.log(coffee.id, 'increase')
+    onIncreaseCoffeeQuantity(coffee)
   }
 
   function handleDecrease() {
     console.log(coffee.id, 'decrease')
+    onDecreaseCoffeeQuantity(coffee)
   }
 
   function handleRemove() {
     console.log(coffee.id)
+    onRemoveCoffeeCart(coffee)
   }
 
-  const formattedPrice = 0
+  const formattedPrice = formatPricer(coffee.price)
 
   return (
     <CoffeeCartCardContainer>
       <div>
-        <img src={`${coffee.photo}`} alt="" />
+        <img src={`/images/coffee/${coffee.photo}`} alt="" />
         <div>
           <RegularText color="subtitle">{coffee.name}</RegularText>
           <ActionsContainer>
             <QuantityInput
               onIncrease={handleIncrease}
               onDecrease={handleDecrease}
-              quantity={coffee.quantity}
+              quantity={coffee?.quantity || 0}
               size="small"
             />
             <RemoveButton type="button" onClick={handleRemove}>

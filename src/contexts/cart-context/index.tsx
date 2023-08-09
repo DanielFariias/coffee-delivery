@@ -1,10 +1,21 @@
 import { createContext, useEffect, useReducer } from 'react'
 import { CartReducer, ICoffee } from './reducer'
-import { AddNewCoffeeToCartAction } from './actions'
+import {
+  AddNewCoffeeToCartAction,
+  clearCartAction,
+  decreaseCoffeeToCartAction,
+  increaseCoffeeToCartAction,
+  removeCoffeeToCartAction,
+} from './actions'
 
 interface ICartContextData {
   quantity: number
   onAddToCart: (coffee: ICoffee) => void
+  cartList: ICoffee[]
+  onIncreaseCoffeeQuantity: (id: ICoffee) => void
+  onDecreaseCoffeeQuantity: (id: ICoffee) => void
+  onRemoveCoffeeCart: (id: ICoffee) => void
+  onClearCart: VoidFunction
 }
 
 export const CartContext = createContext<ICartContextData>(
@@ -29,6 +40,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
       return initialState
     },
   )
+  const { cartList } = cartState
 
   useEffect(() => {
     const stateJSON = JSON.stringify(cartState)
@@ -40,13 +52,34 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     dispatch(AddNewCoffeeToCartAction(coffee))
   }
 
+  function handleIncreaseCoffeeQuantity(coffee: ICoffee) {
+    dispatch(increaseCoffeeToCartAction(coffee))
+  }
+
+  function handleDecreaseCoffeeQuantity(coffee: ICoffee) {
+    dispatch(decreaseCoffeeToCartAction(coffee))
+  }
+
+  function handleRemoveCoffeeCart(coffee: ICoffee) {
+    dispatch(removeCoffeeToCartAction(coffee))
+  }
+
+  function handleClearCart() {
+    dispatch(clearCartAction())
+  }
+
   const cartQuantity = cartState.cartList.length
 
   return (
     <CartContext.Provider
       value={{
+        cartList,
         quantity: cartQuantity,
         onAddToCart: addToCart,
+        onIncreaseCoffeeQuantity: handleIncreaseCoffeeQuantity,
+        onDecreaseCoffeeQuantity: handleDecreaseCoffeeQuantity,
+        onRemoveCoffeeCart: handleRemoveCoffeeCart,
+        onClearCart: handleClearCart,
       }}
     >
       {children}

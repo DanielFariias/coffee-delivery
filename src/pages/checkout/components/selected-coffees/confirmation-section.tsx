@@ -1,26 +1,35 @@
-import { Button } from '../../../../components/button'
-import { RegularText } from '../../../../components/typography/regular-text'
+import { CartContext } from '@contexts/cart-context'
 import { ConfirmationSectionContainer } from './styles'
+import { useContext } from 'react'
+import { RegularText } from '@components/typography/regular-text'
+import { Button } from '@components/button'
+import { formatPricer } from '@utils/formatPricer'
 
 const DELIVERY_PRICE = 3.5
 
 export function ConfirmationSection() {
+  const { cartList } = useContext(CartContext)
+
+  const totalPricer = cartList.reduce((acc, coffee) => {
+    return acc + coffee.price * coffee.quantity!
+  }, 0)
+
   return (
     <ConfirmationSectionContainer>
       <div>
         <RegularText size="s">Total de itens</RegularText>
-        <RegularText>R$ 29.90</RegularText>
+        <RegularText>R$ {formatPricer(totalPricer)}</RegularText>
       </div>
       <div>
         <RegularText size="s">Entrega</RegularText>
-        <RegularText>R$ {DELIVERY_PRICE}</RegularText>
+        <RegularText>R$ {formatPricer(DELIVERY_PRICE)}</RegularText>
       </div>
       <div>
         <RegularText weight="700" color="subtitle" size="l">
           Total
         </RegularText>
         <RegularText weight="700" color="subtitle" size="l">
-          R$ {DELIVERY_PRICE}
+          R$ {formatPricer(totalPricer + DELIVERY_PRICE)}
         </RegularText>
       </div>
 

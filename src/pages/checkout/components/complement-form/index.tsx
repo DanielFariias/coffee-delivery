@@ -8,6 +8,7 @@ import { PaymentOptions } from './payment-options'
 
 export function ComplementForm() {
   const { colors } = useTheme()
+
   return (
     <S.Wrapper>
       <TitleText size="xs" color="subtitle">
